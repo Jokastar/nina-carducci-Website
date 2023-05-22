@@ -1,10 +1,12 @@
-const images = document.querySelectorAll(".grid-item"); 
+const images = document.querySelectorAll(".grid img"); 
+
 
 //1.add the filters to the html page
 const categories = new Set();
 for(let image of images){
-    categories.add(image.getAttribute("imgCategory")); 
+    categories.add(image.dataset.imgcategory);   
 }
+
 
 for(let category of categories){
    const filtersList = document.querySelector(".filters");
@@ -43,7 +45,7 @@ function filterGrid(filter){
         grid.appendChild(image);
        } 
     }   
-    const filteredImagesGrid = imagesGridArray.filter(image => image.getAttribute("imgCategory") === filter); 
+    const filteredImagesGrid = imagesGridArray.filter(image => image.dataset.imgcategory === filter); 
     
     for(let image of filteredImagesGrid){
         grid.appendChild(image); 
@@ -55,8 +57,8 @@ function filterGrid(filter){
 images.forEach(image =>{
     image.addEventListener("click",(e) =>{
         //create the lightbox html
-        const clickedImageCategory = e.target.getAttribute("imgCategory"); 
-        let filteredImages = Array.from(images).filter(image => image.getAttribute("imgCategory") === clickedImageCategory);
+        const clickedImageCategory = e.target.dataset.imgcategory; 
+        let filteredImages = Array.from(images).filter(image => image.dataset.imgcategory === clickedImageCategory);
         let currentIndex;
          
         for(let i in filteredImages){
